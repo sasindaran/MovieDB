@@ -42,6 +42,10 @@ def recommend_movies(movie_name, num_recommendations=10):
     return recommended_movies
 
 # Streamlit app
+st.set_page_config(
+    page_title="MoviesDB",
+    page_icon="📽️",
+)
 st.title("Movie Recommendation System")
 
 movie_name = st.text_input("Enter your favorite movie name:")
