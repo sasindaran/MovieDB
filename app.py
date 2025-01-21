@@ -44,7 +44,7 @@ def recommend_movies(movie_name, num_recommendations=10):
 # Streamlit app
 st.set_page_config(
     page_title="MoviesDB",
-    page_icon="📽️",
+    page_icon="",
 )
 st.title("Movie Recommendation System")
 
