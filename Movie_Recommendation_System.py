@@ -2,9 +2,27 @@ import streamlit as st
 import pandas as pd
 import difflib
 import pickle
+import os
+import gdown  # Ensure gdown is in your requirements.txt
+
+# Set page configuration as the first Streamlit command
+st.set_page_config(
+    page_title="MoviesDB",
+    page_icon="🍿",
+)
+
+# Define the filename and Google Drive file ID
+pkl_file = 'movie_recommendation_model.pkl'
+file_id = '1bF9UYcC4SviDwUV7vi573cihjZrGGiR3'
+download_url = f'https://drive.google.com/uc?id={file_id}'
+
+# Download the file if it doesn't exist locally
+if not os.path.exists(pkl_file):
+    st.write("Downloading the model file, please wait...")
+    gdown.download(download_url, pkl_file, quiet=False)
 
 # Load the model from the file
-with open('movie_recommendation_model.pkl', 'rb') as model_file:
+with open(pkl_file, 'rb') as model_file:
     model_data = pickle.load(model_file)
 
 vectorizer = model_data['vectorizer']
@@ -41,13 +59,8 @@ def recommend_movies(movie_name, num_recommendations=10):
 
     return recommended_movies
 
-# Streamlit app
-st.set_page_config(
-    page_title="MoviesDB",
-    page_icon="🍿",
-)
+# Streamlit app layout
 st.title("Movie Recommendation System")
-
 movie_name = st.text_input("Enter your favorite movie name:")
 num_recommendations = st.slider("Number of recommendations:", 1, 20, 10)
 
